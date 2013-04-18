@@ -14,10 +14,10 @@ class Users(Model):
         database = mysql_db
 
     @classmethod
-    def get_user(klass, name):
+    def get_user_by_id(klass, id):
         user = None
         try:
-            user = klass.get(klass.name == name)
+            user = klass.get(klass.id == id)
         except DoesNotExist:
             return None
         return user
