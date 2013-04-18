@@ -5,20 +5,15 @@
 #                      passwd="venmo",
 #                      db="venmo_redbox")
 
-import constants
-from peewee import (MySQLDatabase, Model, CharField, TimeField, IntegerField, DoesNotExist)
+from peewee import (CharField, TimeField, IntegerField, DoesNotExist, ForeignKeyField)
+from base import BaseModel
+from User import Users
 
-mysql_db = MySQLDatabase(constants.DB_NAME, user=constants.DB_USER, passwd=constants.DB_PASSWORD)
-mysql_db.connect()
-
-class Boxes(Model):
+class Boxes(BaseModel):
     id = IntegerField(primary_key=True)
     boxName = CharField()
-    owner = IntegerField(null=True)
+    owner = ForeignKeyField(Users)
     lastModified = TimeField()
-
-    class Meta:
-        database = mysql_db
 
     @classmethod
     def get_box(klass, boxName):

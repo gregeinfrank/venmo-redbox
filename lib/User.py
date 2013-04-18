@@ -1,17 +1,11 @@
-import constants
-from peewee import (MySQLDatabase, Model, IntegerField, CharField, TimeField, DoesNotExist)
+from peewee import (IntegerField, CharField, TimeField, DoesNotExist)
+from Base import BaseModel
 
-mysql_db = MySQLDatabase(constants.DB_NAME, user=constants.DB_USER, passwd=constants.DB_PASSWORD)
-mysql_db.connect()
-
-class Users(Model):
+class Users(BaseModel):
     id = IntegerField(primary_key=True)
     name = CharField()
     picture = CharField()
     lastModified = TimeField()
-
-    class Meta:
-        database = mysql_db
 
     @classmethod
     def get_user_by_id(klass, id):
