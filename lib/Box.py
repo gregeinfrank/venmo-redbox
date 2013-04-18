@@ -10,7 +10,6 @@ from base import BaseModel
 from User import Users
 
 class Boxes(BaseModel):
-    id = IntegerField(primary_key=True)
     boxName = CharField()
     owner = ForeignKeyField(Users)
     lastModified = TimeField()
