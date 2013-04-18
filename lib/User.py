@@ -1,10 +1,11 @@
+from datetime import datetime
 from peewee import (CharField, TimeField, DoesNotExist)
 from base import BaseModel
 
 class Users(BaseModel):
     name = CharField()
     picture = CharField()
-    lastModified = TimeField()
+    lastModified = TimeField(default = datetime.now())
 
     @classmethod
     def get_user_by_name(klass, name):
