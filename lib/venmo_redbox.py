@@ -12,6 +12,12 @@ def setUser():
         # TODO: set the picture
         Users.create(name=whoami)
 
+def ascii_print(string):
+    ascii_fonts = urllib2.urlopen("http://artii.herokuapp.com/fonts_list").read().split('\n')
+    font = choice(ascii_fonts)
+    print font
+    print urllib2.urlopen("http://artii.herokuapp.com/make?text=%s&font=%s" % (string, font)).read()
+
 def who(boxName):
     box = Boxes.get_box(boxName=boxName)
     if box:
@@ -20,10 +26,7 @@ def who(boxName):
             if box.owner.picture:
                 print box.owner.picture
             else:
-                ascii_fonts = urllib2.urlopen("http://artii.herokuapp.com/fonts_list").read().split('\n')
-                font = choice(ascii_fonts)
-                print font
-                print urllib2.urlopen("http://artii.herokuapp.com/make?text=%s&font=%s" % (box.owner.name, font)).read()
+                ascii_print(box.owner.name)
                 print "%s is the current master of %s" % (box.owner.name, boxName)
         else:
             print "Nobody owns box %s" % boxName
