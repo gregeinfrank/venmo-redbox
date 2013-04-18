@@ -22,5 +22,4 @@ ascii_fonts = ['isometric4',
 
 def ascii_print(string):
     font = choice(ascii_fonts)
-    print font
     print urllib2.urlopen("http://artii.herokuapp.com/make?text=%s&font=%s" % (string, font)).read()
