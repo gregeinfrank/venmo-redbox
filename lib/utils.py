@@ -8,7 +8,6 @@ ascii_fonts = ['isometric4',
                'char3___',
                'ticks',
                'tombstone',
-               'p_s_h_m_',
                'colossal',
                'shadow',
                'ascii___',
@@ -17,9 +16,11 @@ ascii_fonts = ['isometric4',
                'rounded',
                'nancyj',
                'xhelvi',
-               'e__fist_',
                'chunky']
 
 def ascii_print(string):
+    # url needs to be sent with '+' as space
+    string = string.replace(' ', '+')
     font = choice(ascii_fonts)
-    print urllib2.urlopen("http://artii.herokuapp.com/make?text=%s&font=%s" % (string, font)).read()
+    print urllib2.urlopen("http://artii.herokuapp.com/make?text=%s&font=%s" %
+                          (string, font)).read()
