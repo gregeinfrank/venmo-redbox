@@ -5,9 +5,10 @@
 #                      passwd="venmo",
 #                      db="venmo_redbox")
 
+import constants
 from peewee import (MySQLDatabase, Model, CharField, TimeField, IntegerField, DoesNotExist)
 
-mysql_db = MySQLDatabase('venmo_redbox', user="root", passwd="venmo")
+mysql_db = MySQLDatabase(constants.DB_NAME, constants.DB_USER, constants.DB_PASSWORD)
 mysql_db.connect()
 
 class Boxes(Model):
