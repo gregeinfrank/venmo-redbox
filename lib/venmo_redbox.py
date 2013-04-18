@@ -1,5 +1,6 @@
 import sys
 from random import choice
+import time
 import getpass
 import urllib2
 from Box import Boxes
@@ -22,12 +23,14 @@ def ascii_print(string):
 def rent(boxName):
     box = Boxes.get_box_by_name(boxName=boxName)
     if box:
-        if box.owner:
-            print "Doh! %s already has box %s!" % (box.owner.name, boxName)
+        if box.owner and box.owner != this_user and box.expiresAt > int(time.time()):
+            ascii_print("DOH!")
+            print "%s already has box %s!" % (box.owner.name, boxName)
         else:
             box.owner = this_user
+            box.expiresAt = int(time.time() + 3600) # Expire in one hour
             box.save()
-            print "You now own %s!  Sick!!!!" % boxName
+            print "You now own %s! \"Sick Set\"!!!!" % boxName
     else:
         print "Unkown box: %s" % boxName
 
