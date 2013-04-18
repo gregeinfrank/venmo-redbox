@@ -1,7 +1,5 @@
 import sys
-from random import choice
 import getpass
-import urllib2
 import constants
 from Box import Boxes
 from User import Users
@@ -13,12 +11,6 @@ def setUser():
         # TODO: set the picture
         me = Users.create(name=whoami)
     return me
-
-def ascii_print(string):
-    ascii_fonts = urllib2.urlopen("http://artii.herokuapp.com/fonts_list").read().split('\n')
-    font = choice(ascii_fonts)
-    print font
-    print urllib2.urlopen("http://artii.herokuapp.com/make?text=%s&font=%s" % (string, font)).read()
 
 def steal(boxName):
     box = Boxes.get_box_by_name(boxName=boxName)

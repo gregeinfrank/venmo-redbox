@@ -9,6 +9,7 @@ import datetime
 from peewee import (CharField, IntegerField, DoesNotExist, ForeignKeyField)
 from base import BaseModel
 from User import Users
+from utils import ascii_print
 
 class Boxes(BaseModel):
     boxName = CharField()
@@ -26,7 +27,7 @@ class Boxes(BaseModel):
 
     def rent_for(self, user, steal_if_taken=False):
         if self.owner and self.owner != user and self.expiresAt > int(time.time()) and not steal_if_taken:
-#            ascii_print("DOH!")
+            ascii_print("DOH!")
             print "%s already has box %s!" % (self.owner.name, self.boxName)
             print "This rental expires at:"
             print(datetime.datetime.fromtimestamp(self.expiresAt).strftime('%Y-%m-%d %H:%M:%S'))
@@ -45,7 +46,7 @@ class Boxes(BaseModel):
             if self.owner.picture:
                 print self.owner.picture
             else:
-#                ascii_print(self.owner.name)
+                ascii_print(self.owner.name)
                 print "%s is the current master of %s" % (self.owner.name, self.boxName)
         else:
             print "Nobody owns box %s" % self.boxName
