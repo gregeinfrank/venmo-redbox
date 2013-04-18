@@ -35,3 +35,13 @@ class Boxes(BaseModel):
             self.expiresAt = int(time.time() + 3600) # Expire in one hour
             self.save()
             print "You now own %s for the next hour! \"Sick Set\"!!!!" % self.boxName
+
+    def print_owner(self):
+        if self.owner:
+            if self.owner.picture:
+                print self.owner.picture
+            else:
+#                ascii_print(self.owner.name)
+                print "%s is the current master of %s" % (self.owner.name, self.boxName)
+        else:
+            print "Nobody owns box %s" % self.boxName

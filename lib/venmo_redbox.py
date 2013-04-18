@@ -31,15 +31,7 @@ def rent(boxName):
 def who(boxName):
     box = Boxes.get_box_by_name(boxName=boxName)
     if box:
-        print "We found box %s" % boxName
-        if box.owner:
-            if box.owner.picture:
-                print box.owner.picture
-            else:
-                ascii_print(box.owner.name)
-                print "%s is the current master of %s" % (box.owner.name, boxName)
-        else:
-            print "Nobody owns box %s" % boxName
+        box.print_owner()
     else:
         print "No box named %s.  Better luck next time!" % boxName
 
