@@ -7,10 +7,10 @@ class Users(BaseModel):
     lastModified = TimeField()
 
     @classmethod
-    def get_user_by_id(klass, id):
+    def get_user_by_name(klass, name):
         user = None
         try:
-            user = klass.get(klass.id == id)
+            user = klass.get(klass.name == name)
         except DoesNotExist:
             return None
         return user

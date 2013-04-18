@@ -1,6 +1,11 @@
 import sys
+import getpass
 from Box import Boxes
 from User import Users
+
+def setUser():
+    me = getpass.getuser()
+    print me
 
 def main(script, command, *args):
     if command == 'who':
@@ -12,11 +17,11 @@ def main(script, command, *args):
         if box:
             print "We found box %s" % boxName
             if box.owner:
-                owner = Users.get_user_by_id(box.owner)
-                print "%s is the current master of %s" % (owner.name, boxName)
+                print "%s is the current master of %s" % (box.owner.name, boxName)
             else:
                 print "Nobody owns box %s" % boxName
         else:
             print "No box named %s.  Better luck next time!" % boxName
 
+setUser()
 main(*sys.argv)
