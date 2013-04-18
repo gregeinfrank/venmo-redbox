@@ -3,6 +3,7 @@ import getpass
 import constants
 from Box import Boxes
 from User import Users
+from utils import ascii_print
 
 def setUser():
     whoami = getpass.getuser()
@@ -31,6 +32,7 @@ def who(boxName):
     if box:
         box.print_owner()
     else:
+        ascii_print("Ouch")
         print "No box named %s.  Better luck next time!" % boxName
 
 def main(script, command, *args):
