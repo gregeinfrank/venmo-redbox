@@ -1,20 +1,29 @@
 #import MySQLdb
-#from peewee import *
-import peewee
 
 # db = MySQLdb.connect(host="localhost",
 #                      user="root",
 #                      passwd="venmo",
 #                      db="venmo_redbox")
 
-mysql_db = peewee.MySQLDatabase('venmo_redbox', user="root", passwd="venmo")
+from peewee import (MySQLDatabase, Model, CharField, TimeField, IntegerField, DoesNotExist)
+
+mysql_db = MySQLDatabase('venmo_redbox', user="root", passwd="venmo")
 mysql_db.connect()
 
-class Boxes(peewee.Model):
-    id = peewee.IntegerField(primary_key=True)
-    boxName = peewee.CharField()
-    owner = peewee.IntegerField(null=True)
-    lastModified = peewee.TimeField()
+class Boxes(Model):
+    id = IntegerField(primary_key=True)
+    boxName = CharField()
+    owner = IntegerField(null=True)
+    lastModified = TimeField()
 
     class Meta:
         database = mysql_db
+
+    @classmethod
+    def get_box(klass, boxName):
+        box = None
+        try:
+            box = klass.get(klass.boxName == boxName)
+        except DoesNotExist:
+            return None
+        return box
