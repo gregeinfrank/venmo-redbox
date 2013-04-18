@@ -10,13 +10,26 @@ def setUser():
     me = Users.get_user_by_name(whoami)
     if not me:
         # TODO: set the picture
-        Users.create(name=whoami)
+        me = Users.create(name=whoami)
+    return me
 
 def ascii_print(string):
     ascii_fonts = urllib2.urlopen("http://artii.herokuapp.com/fonts_list").read().split('\n')
     font = choice(ascii_fonts)
     print font
     print urllib2.urlopen("http://artii.herokuapp.com/make?text=%s&font=%s" % (string, font)).read()
+
+def claim(boxName):
+    box = Boxes.get_box(boxName=boxName)
+    if box:
+        if box.owner:
+            print "Doh! %s already has box %s!" % (box.owner.name, boxName)
+        else:
+            box.owner = this_user
+            box.save()
+            print "You now own %s!  Sick!!!!" % boxName
+    else:
+        print "Unkown box: %s" % boxName
 
 def who(boxName):
     box = Boxes.get_box(boxName=boxName)
@@ -39,6 +52,11 @@ def main(script, command, *args):
             print "Wat?? Please input the box name you want to know about"
             return
         who(args[0])
+    elif command == 'claim':
+        if len(args) < 1:
+            print "Bro, you need to specify which box you want to claim"
+            return
+        claim(args[0])
 
-setUser()
+this_user = setUser()
 main(*sys.argv)
