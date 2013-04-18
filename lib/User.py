@@ -1,5 +1,5 @@
 from peewee import (IntegerField, CharField, TimeField, DoesNotExist)
-from Base import BaseModel
+from base import BaseModel
 
 class Users(BaseModel):
     name = CharField()
