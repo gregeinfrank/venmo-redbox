@@ -40,6 +40,7 @@ class Boxes(BaseModel):
 
     def print_owner(self):
         if self.is_available():
+            ascii_print("All Yours")
             print "Nobody owns box %s" % self.boxName
         else:
             if self.owner.picture:
