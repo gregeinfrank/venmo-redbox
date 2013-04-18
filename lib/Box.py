@@ -25,8 +25,11 @@ class Boxes(BaseModel):
             print "%s already has box %s!" % (self.owner.name, self.boxName)
             print "This rental expires at:"
             print(datetime.datetime.fromtimestamp(self.expiresAt).strftime('%Y-%m-%d %H:%M:%S'))
-            answer = raw_input("Would you like to steal from %s? [Y/N]" % self.owner.name)
-            if answer == 'y' or answer == 'Y':
+
+            answer = raw_input("Would you like to steal from %s? [Y/N] " % self.owner.name)
+            while answer not in ['y', 'Y', 'n', 'N']: # We keep asking until they give us a "y" or "n" (case insensitive)
+                answer = raw_input("Please respond [Y/N] ")
+            if answer in ['y', 'Y']:
                 self.rent_for(user, steal_if_taken=True)
         else:
             #TODO: If you're stealing, display that.
