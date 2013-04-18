@@ -1,9 +1,8 @@
 import sys
 from random import choice
-import time
-import datetime
 import getpass
 import urllib2
+import constants
 from Box import Boxes
 from User import Users
 
@@ -20,6 +19,13 @@ def ascii_print(string):
     font = choice(ascii_fonts)
     print font
     print urllib2.urlopen("http://artii.herokuapp.com/make?text=%s&font=%s" % (string, font)).read()
+
+def steal(boxName):
+    box = Boxes.get_box_by_name(boxName=boxName)
+    if box:
+        box.rent_for(this_user, steal_if_taken=True)
+    else:
+        print "WTF? No comprendo %s" % boxName
 
 def rent(boxName):
     box = Boxes.get_box_by_name(boxName=boxName)
@@ -46,6 +52,13 @@ def main(script, command, *args):
             print "Bro, you need to specify which box you want to rent"
             return
         rent(args[0])
+    elif command == 'steal':
+        if len(args) < 1:
+            print "What are you lookin' to steal today?"
+            return
+        steal(args[0])
+    else:
+        print constants.HELP_TEXT
 
 this_user = setUser()
 main(*sys.argv)
