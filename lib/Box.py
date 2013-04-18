@@ -20,7 +20,7 @@ class Boxes(BaseModel):
         return box
 
     def rent_for(self, user, steal_if_taken=False):
-        if self.owner and self.owner != user and self.expiresAt > int(time.time()) and not steal_if_taken:
+        if not self.is_available() and self.owner != user and not steal_if_taken:
             ascii_print("DOH!")
             print "%s already has box %s!" % (self.owner.name, self.boxName)
             print "This rental expires at:"
@@ -39,11 +39,18 @@ class Boxes(BaseModel):
             print "You now own %s for the next hour! \"Sick Set\"!!!!" % self.boxName
 
     def print_owner(self):
-        if self.owner:
+        if self.is_available():
+            print "Nobody owns box %s" % self.boxName
+        else:
             if self.owner.picture:
                 print self.owner.picture
             else:
                 ascii_print(self.owner.name)
-                print "%s is the current master of %s" % (self.owner.name, self.boxName)
-        else:
-            print "Nobody owns box %s" % self.boxName
+                print "%s is the current owner of %s" % (self.owner.name, self.boxName)
+
+
+    def is_available(self):
+        if self.owner:
+            if self.expiresAt <= int(time.time()):
+                return False
+        return True
