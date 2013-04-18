@@ -19,6 +19,9 @@ class Boxes(BaseModel):
             return None
         return box
 
+    # def return_for(self, user):
+    #     if self
+
     def rent_for(self, user, steal_if_taken=False):
         if not self.is_available() and self.owner != user and not steal_if_taken:
             ascii_print("DOH!")
@@ -52,6 +55,6 @@ class Boxes(BaseModel):
 
     def is_available(self):
         if self.owner:
-            if self.expiresAt <= int(time.time()):
+            if self.expiresAt > int(time.time()):
                 return False
         return True
