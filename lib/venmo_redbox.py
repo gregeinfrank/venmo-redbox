@@ -19,7 +19,7 @@ def ascii_print(string):
     print font
     print urllib2.urlopen("http://artii.herokuapp.com/make?text=%s&font=%s" % (string, font)).read()
 
-def claim(boxName):
+def rent(boxName):
     box = Boxes.get_box(boxName=boxName)
     if box:
         if box.owner:
@@ -52,11 +52,11 @@ def main(script, command, *args):
             print "Wat?? Please input the box name you want to know about"
             return
         who(args[0])
-    elif command == 'claim':
+    elif command == 'rent':
         if len(args) < 1:
-            print "Bro, you need to specify which box you want to claim"
+            print "Bro, you need to specify which box you want to rent"
             return
-        claim(args[0])
+        rent(args[0])
 
 this_user = setUser()
 main(*sys.argv)
