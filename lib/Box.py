@@ -5,13 +5,13 @@
 #                      passwd="venmo",
 #                      db="venmo_redbox")
 
-from peewee import (CharField, TimeField, IntegerField, DoesNotExist, ForeignKeyField)
+from peewee import (CharField, TimeField, DoesNotExist, ForeignKeyField)
 from base import BaseModel
 from User import Users
 
 class Boxes(BaseModel):
     boxName = CharField()
-    owner = ForeignKeyField(Users)
+    owner = ForeignKeyField(Users, null=True, default = None)
     lastModified = TimeField()
 
     @classmethod
