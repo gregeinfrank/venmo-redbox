@@ -1,27 +1,41 @@
 import sys
+from random import choice
 import getpass
+import urllib2
 from Box import Boxes
 from User import Users
 
 def setUser():
-    me = getpass.getuser()
-    print me
+    whoami = getpass.getuser()
+    me = Users.get_user_by_name(whoami)
+    if not me:
+        # TODO: set the picture
+        Users.create(name=whoami)
+
+def who(boxName):
+    box = Boxes.get_box(boxName=boxName)
+    if box:
+        print "We found box %s" % boxName
+        if box.owner:
+            if box.owner.picture:
+                print box.owner.picture
+            else:
+                ascii_fonts = urllib2.urlopen("http://artii.herokuapp.com/fonts_list").read().split('\n')
+                font = choice(ascii_fonts)
+                print font
+                print urllib2.urlopen("http://artii.herokuapp.com/make?text=%s&font=%s" % (box.owner.name, font)).read()
+                print "%s is the current master of %s" % (box.owner.name, boxName)
+        else:
+            print "Nobody owns box %s" % boxName
+    else:
+        print "No box named %s.  Better luck next time!" % boxName
 
 def main(script, command, *args):
     if command == 'who':
         if len(args) < 1:
-            print "Input what box you want to ask about"
+            print "Wat?? Please input the box name you want to know about"
             return
-        boxName = args[0]
-        box = Boxes.get_box(boxName=boxName)
-        if box:
-            print "We found box %s" % boxName
-            if box.owner:
-                print "%s is the current master of %s" % (box.owner.name, boxName)
-            else:
-                print "Nobody owns box %s" % boxName
-        else:
-            print "No box named %s.  Better luck next time!" % boxName
+        who(args[0])
 
 setUser()
 main(*sys.argv)
