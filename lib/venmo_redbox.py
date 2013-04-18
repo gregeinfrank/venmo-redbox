@@ -13,6 +13,11 @@ def setUser():
         me = Users.create(name=whoami)
     return me
 
+def available():
+    for box in Boxes.select():
+        if box.is_available():
+            ascii_print(box.boxName)
+
 def steal(boxName):
     box = Boxes.get_box_by_name(boxName=boxName)
     if box:
@@ -51,6 +56,8 @@ def main(script, command, *args):
             print "What are you lookin' to steal today?"
             return
         steal(args[0])
+    elif command == 'available':
+        available()
     else:
         print constants.HELP_TEXT
 
