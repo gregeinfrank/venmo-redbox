@@ -1,7 +1,7 @@
 import constants
 from peewee import (MySQLDatabase, Model, IntegerField, CharField, TimeField, DoesNotExist)
 
-mysql_db = MySQLDatabase(constants.DB_NAME, constants.DB_USER, constants.DB_PASSWORD)
+mysql_db = MySQLDatabase(constants.DB_NAME, user=constants.DB_USER, passwd=constants.DB_PASSWORD)
 mysql_db.connect()
 
 class Users(Model):
