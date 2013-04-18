@@ -16,7 +16,7 @@ class Boxes(BaseModel):
     lastModified = TimeField(default = datetime.now())
 
     @classmethod
-    def get_box(klass, boxName):
+    def get_box_by_name(klass, boxName):
         box = None
         try:
             box = klass.get(klass.boxName == boxName)

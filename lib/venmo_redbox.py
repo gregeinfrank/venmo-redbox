@@ -20,7 +20,7 @@ def ascii_print(string):
     print urllib2.urlopen("http://artii.herokuapp.com/make?text=%s&font=%s" % (string, font)).read()
 
 def rent(boxName):
-    box = Boxes.get_box(boxName=boxName)
+    box = Boxes.get_box_by_name(boxName=boxName)
     if box:
         if box.owner:
             print "Doh! %s already has box %s!" % (box.owner.name, boxName)
@@ -32,7 +32,7 @@ def rent(boxName):
         print "Unkown box: %s" % boxName
 
 def who(boxName):
-    box = Boxes.get_box(boxName=boxName)
+    box = Boxes.get_box_by_name(boxName=boxName)
     if box:
         print "We found box %s" % boxName
         if box.owner:
