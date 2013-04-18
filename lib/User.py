@@ -1,4 +1,4 @@
-from peewee import (IntegerField, CharField, TimeField, DoesNotExist)
+from peewee import (CharField, TimeField, DoesNotExist)
 from base import BaseModel
 
 class Users(BaseModel):
