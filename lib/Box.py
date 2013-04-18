@@ -35,9 +35,16 @@ class Boxes(BaseModel):
             if answer in ['y', 'Y']:
                 self.rent_for(user, steal_if_taken=True)
         else:
-            #TODO: If you're stealing, display that.
-            self.owner = user
             self.expiresAt = int(time.time() + 3600) # Expire in one hour
+            if self.owner == user:
+                ascii_print("Renewed")
+                print "Congrats! You've extended your rental of %s for another hour! New expiration time is: %s" % (
+                        self.boxName, datetime.datetime.fromtimestamp(self.expiresAt).strftime('%Y-%m-%d %H:%M:%S'))
+            else:
+                if not self.is_available():
+                    ascii_print("SWIPE!")
+                    print "You stole %s from %s" % (self.boxName, self.owner.name)
+                self.owner = user
             self.save()
             print "You now own %s for the next hour! \"Sick Set\"!!!!" % self.boxName
 

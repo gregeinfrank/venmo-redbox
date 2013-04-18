@@ -18,12 +18,21 @@ def available():
         if box.is_available():
             ascii_print(box.boxName)
 
+def return_box(boxName):
+    box = Boxes.get_box_by_name(boxName=boxName)
+    if box:
+        box.return_for(this_user)
+    else:
+        ascii_print("HEH???")
+        print "No known box named %s" % boxName
+
 def steal(boxName):
     box = Boxes.get_box_by_name(boxName=boxName)
     if box:
         box.rent_for(this_user, steal_if_taken=True)
     else:
-        print "WTF? No comprendo %s" % boxName
+        ascii_print("WTF")
+        print "No box named %s" % boxName
 
 def rent(boxName):
     box = Boxes.get_box_by_name(boxName=boxName)
@@ -56,6 +65,11 @@ def main(script, command, *args):
             print "What are you lookin' to steal today?"
             return
         steal(args[0])
+    elif command == 'return':
+        if len(args) < 1:
+            print "What would yo like to return?"
+            return
+        return_box(args[0])
     elif command == 'available':
         available()
     else:
