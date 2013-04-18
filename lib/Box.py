@@ -1,9 +1,3 @@
-#import MySQLdb
-
-# db = MySQLdb.connect(host="localhost",
-#                      user="root",
-#                      passwd="venmo",
-#                      db="venmo_redbox")
 import time
 import datetime
 from peewee import (CharField, IntegerField, DoesNotExist, ForeignKeyField)
